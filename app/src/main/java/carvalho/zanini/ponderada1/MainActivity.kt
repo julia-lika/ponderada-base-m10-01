@@ -8,9 +8,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlin.random.Random
+import androidx.compose.foundation.Image
 
 import androidx.compose.ui.tooling.preview.Preview
 import carvalho.zanini.ponderada1.ui.theme.Ponderada1Theme
@@ -29,7 +31,15 @@ fun LancadorDeDadosApp() {
     var dadoSelecionado by remember { mutableStateOf("D6") }
     var resultado by remember { mutableStateOf("Clique no botão para lançar o dado") }
 
-    val dados = listOf("D6",)
+    val dados = listOf("D6", "D10", "D20", "D100")
+
+    val imagemDado = when (dadoSelecionado) {
+        "D6" -> R.drawable.d6
+        "D10" -> R.drawable.d10
+        "D20" -> R.drawable.d20
+        "D100" -> R.drawable.rollingdice
+        else -> R.drawable.d6
+    }
 
     Column(
         modifier = Modifier
@@ -64,7 +74,10 @@ fun LancadorDeDadosApp() {
         Button(
             onClick = {
                 val valorSorteado = when (dadoSelecionado) {
-                    "D6" -> Random.nextInt(6)
+                    "D6" -> Random.nextInt(6) + 1
+                    "D10" -> Random.nextInt(10) + 1
+                    "D20" -> Random.nextInt(20) + 1
+                    "D100" -> Random.nextInt(100    ) + 1
                     else -> 0
                 }
 
@@ -81,5 +94,14 @@ fun LancadorDeDadosApp() {
             text = resultado,
             fontSize = 20.sp
         )
+        Box (
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            Image (
+                painter = painterResource(id = imagemDado),
+                contentDescription = dadoSelecionado
+            )
+        }
     }
 }
