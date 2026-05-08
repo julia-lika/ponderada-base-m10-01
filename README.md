@@ -34,3 +34,5 @@ val imagemDado = when (dadoSelecionado) {
 <video width="600" controls>
   <source src="video.mp4" type="video/mp4">
 </video>
+
+[![Assistir vídeo]](./video.mp4)
